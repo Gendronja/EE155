@@ -34,3 +34,10 @@ void ASCII_Table(){
 
 // WRITE YOUR CODE FROM HERE
 
+int main()
+{
+
+
+
+
+}
