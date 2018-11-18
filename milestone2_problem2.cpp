@@ -23,11 +23,11 @@ ASCII_Table();
 string ASCII_CODES[128];
 string ASCII_SYMBOLS[128];
 
-void ASCII_Table(){
+void ASCII_Table() {
 	// This function fills ASCII_CODES and ASCII_SYMBOLS arrays.
-	for (int i = 0; i < 128; i++){
+	for (int i = 0; i < 128; i++) {
 		ASCII_SYMBOLS[i] = char(i);
-		ASCII_CODES[i] = bitset <7> (i).to_string();
+		ASCII_CODES[i] = bitset <7>(i).to_string();
 	}
 }
 // DO NOT MODIFY THIS CODE

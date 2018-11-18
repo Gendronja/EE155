@@ -178,7 +178,7 @@ int main()
 
 	int i = 0;
 	char c;
-	ifstream infile("char_text.txt");
+	ifstream infile("encoded.txt");
 	if (infile.is_open()) {
 		while (!infile.eof()) {
 			infile.read(&c, sizeof(char));
