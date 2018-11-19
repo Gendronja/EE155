@@ -34,59 +34,6 @@ void ASCII_Table() {
 
 // WRITE YOUR CODE FROM HERE
 
-// Store names in buffer and swap them
-void swap_names(string names[], int pos1, int pos2)
-{
-	string buffer = names[pos1];
-	names[pos1] = names[pos2];
-	names[pos2] = buffer;
-}
-
-
-// Uses swap_name function to operate
-void sort_list(string names[], int sz_names)
-{
-	for (int i = 0; i < sz_names; i++) {
-		for (int j = 0; j < sz_names; j++) {
-			if (names[j] > names[i]) {
-				swap_names(names, i, j);
-			}
-		}
-	}
-}
-
-// Shifts list down from given position to add new name into place
-void shift_list(string names[], int& sz_names, int shift_position)
-{
-	for (int i = sz_names; i > shift_position; i--)
-	{
-		names[i] = names[i - 1];
-	}
-}
-
-void print_list(string names[], int sz_names)
-{
-	for (int i = 0; i < sz_names; i++)
-	{
-		cout << "Name " << i + 1 << ": " << names[i] << endl;
-
-	}
-}
-
-// Asks for number of names and the names themselves in list, and returns it for main
-void read_initial_list(string names[], int& sz_names)
-{
-	cout << "Please enter number of names" << endl;
-	cin >> sz_names;
-
-	for (int i = 0; i < sz_names; i++)
-	{
-		cout << "Enter name " << i + 1 << ": " << endl;
-		cin >> names[i];
-	}
-	return;
-}
-
 // Uses sequential searching to find exact match of string
 // If there is an exact match, returns position of name
 // If no match, returns -1
@@ -100,93 +47,59 @@ int search_name_in_list(string names[], string search_name, int sz_names)
 	return(-1);
 }
 
-// Adds name to bottom of list and updates the sz_names value
-void add_name_to_list(string names[], int& sz_names)
+void encode_file()
 {
-	// Only runs if user inputs y
-	cout << "Would you like to add a name to the list? Type y or n" << endl;
-	cin >> y_n;
-	if (y_n == "y" || y_n == "Y") {
-		string add_name;
-		cout << "Please type the name you would like to add" << endl;
-		cin >> add_name;
-		names[sz_names] = add_name;
-		sz_names++;
-	}
-}
+	int symbol_position;
+	char c;
+	string ch;
+	
+	ifstream encode("char_text.txt");
+	ofstream encoded("encoded.txt");
 
-// Finds position to add name
-// Uses separate function to shift list down
-// Adds name into list
-void add_name_to_sorted_list(string names[], int& sz_names)
-{
-	string add_name;
-	cout << "Please type the name you would like to add" << endl;
-	cin >> add_name;
-
-	for (int i = 0; i < sz_names; i++) {
-		if (names[i] > add_name) {
-			shift_list(names, sz_names, i);
-			names[i] = add_name;
-			sz_names++;
-			break;
+	if (encode.is_open()) {
+		while (!encode.eof()) {
+			encode.read(&c, sizeof(char));
+			ch = ("%c", c);
+			symbol_position = search_name_in_list(ASCII_SYMBOLS, ch, 128);
+			encoded << ASCII_CODES[symbol_position];
 		}
 	}
+	encode.close();
+	encoded.close();
 }
 
-// Removes name from list while keeping order by moving all names below it up one and reduces sz_names value
-// Finds position using the search_name_in_list function
-void remove_name_from_list(string names[], int& sz_names)
-{
-	cout << "Would you like to remove a name from the list? Type y or n" << endl;
-	cin >> y_n;
-	if (y_n == "y" || y_n == "Y") {
-		string remove_name;
-		cout << "Please type the name you would like to remove" << endl;
-		cin >> remove_name;
-		int remove_name_position = search_name_in_list(names, remove_name, sz_names);
-		if (remove_name_position == -1) {
-			cout << "Does not exist in the list" << endl;
-			return;
-		}
-		for (int i = remove_name_position; i < sz_names; i++) {
-			names[i] = names[i + 1];
 
+void decode_file()
+{
+	char bit;
+	int code_position;
+	int i = 0;
+	string code_string;
+
+
+	ifstream decode("encoded.txt");
+	ofstream decoded("decoded.txt");
+	if (decode.is_open()) {
+		while (!decode.eof()) {
+			for (i = 0; i < 7; i++) {
+				decode.read(&bit, sizeof(char));
+				code_string += ("%c", bit);
+			}
+			code_position = search_name_in_list(ASCII_CODES, code_string, 128);
+			decoded << ASCII_SYMBOLS[code_position];
+			code_string = "";
 		}
-		sz_names--;
+		decode.close();
+		decoded.close();
 	}
 }
-
-void encode_file(char array[], int size)
-{
-	char ch;
-	int char_position;
-	ofstream outfile("encoded.txt");
-
-	for (int i = 0; i < size; i++) {
-		ch = ("%s", array[i]);
-		char_position = search_name_in_list(ASCII_SYMBOLS, array[i], 128);
-		outfile << ASCII_CODE[char_position];
-	}
-	outfile.close();
-}
-
 
 int main()
 {
 	ASCII_Table();
+	
+	encode_file();
 
-	int i = 0;
-	char c;
-	ifstream infile("char_text.txt");
-	if (infile.is_open()) {
-		while (!infile.eof()) {
-			infile.read(&c, sizeof(char));
-			char_array[i] = c;
-			i++;
-		}
-	}
-	infile.close();
-	encode_file(char_array, i);
+	decode_file();
 
 }
