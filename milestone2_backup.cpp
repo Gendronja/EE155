@@ -47,18 +47,6 @@ int search_name_in_list(string names[], string search_name, int sz_names)
 	return(-1);
 }
 
-void create_binary_tree()
-{
-	string search_code_tree[255];
-	for (int i = 126; i < 255; i++) {
-		search_code_tree[i] = ASCII_CODES[i - 126];
-	}
-}
-
-
-
-}
-
 // Takes .txt file and outputs a new encoded file that contains ascii code as 7 bits.
 // Uses search_name_in_list function to compare position of each character read to ascii table values
 void encode_file()
