@@ -49,13 +49,27 @@ int search_name_in_list(string names[], string search_name, int sz_names)
 
 void create_binary_tree()
 {
-	string search_code_tree[255];
+	string* search_code_tree[255];
 	for (int i = 126; i < 255; i++) {
 		search_code_tree[i] = ASCII_CODES[i - 126];
 	}
 }
 
-
+char search_tree(unsigned char tree[], int nodes, string code)
+{
+	int bit;
+	int index = 0;
+	for (int i = 0; i < nodes; i++) {
+		if (code.substr(i, 1) == "1") {
+			bit = 1;
+		}
+		else {
+			bit = 0;
+		}
+		index = (index * 2) + 1 + bit;
+	}
+	return (tree[index]);
+}
 
 }
 
@@ -96,7 +110,6 @@ void decode_file()
 	int code_position;
 	int i = 0;
 	string code_string;
-
 
 	ifstream to_decode("encoded.txt");
 	ofstream decoded("decoded.txt");
