@@ -34,9 +34,10 @@ void ASCII_Table() {
 
 // WRITE YOUR CODE FROM HERE
 
+
 // Uses sequential searching to find exact match of string
 // If there is an exact match, returns position of name
-// If no match, returns -1
+// If no match, returns -1 (should never happen in this program)
 int search_name_in_list(string names[], string search_name, int sz_names)
 {
 	for (int i = 0; i < sz_names; i++) {
@@ -47,15 +48,20 @@ int search_name_in_list(string names[], string search_name, int sz_names)
 	return(-1);
 }
 
-void create_binary_tree()
+// Creates a binary tree for use in searching
+// Fills all values before the leaf node with 0 to prevent random values from appearing
+void create_binary_tree(string array[])
 {
-	string* search_code_tree[255];
-	for (int i = 126; i < 255; i++) {
-		search_code_tree[i] = ASCII_CODES[i - 126];
+	for (int i = 0; i < 127; i++) {
+		array[i] = "0";
+	}
+	for (int i = 127; i < 255; i++) {
+		array[i] = ASCII_SYMBOLS[i - 127];
 	}
 }
 
-char search_tree(unsigned char tree[], int nodes, string code)
+// Uses binary tree arrays to search for information
+string search_tree(string tree[], int nodes, string code)
 {
 	int bit;
 	int index = 0;
@@ -71,16 +77,15 @@ char search_tree(unsigned char tree[], int nodes, string code)
 	return (tree[index]);
 }
 
-}
-
 // Takes .txt file and outputs a new encoded file that contains ascii code as 7 bits.
 // Uses search_name_in_list function to compare position of each character read to ascii table values
+
 void encode_file()
 {
 	int symbol_position;
 	char c;
 	string ch;
-	
+
 	// Change this file name to read a different file
 	ifstream to_encode("char_text.txt");
 
@@ -102,10 +107,14 @@ void encode_file()
 	encoded.close();
 }
 
+
 // Takes encoded file and outputs a new decoded file that has the same content as the original read file
-// Converts 7 bits into a string and compares the string to the ASCII_CODES array to find position for ASCII_SYMBOLS
+// Converts 7 bits into a string and uses a binary tree search to search for the proper character
 void decode_file()
 {
+	string binary_tree[255];
+	create_binary_tree(binary_tree);
+
 	char bit;
 	int code_position;
 	int i = 0;
@@ -115,6 +124,7 @@ void decode_file()
 	ofstream decoded("decoded.txt");
 	if (to_decode.is_open()) {
 		while (!to_decode.eof()) {
+			// Read 7 bits and convert them into a string
 			for (i = 0; i < 7; i++) {
 				to_decode.read(&bit, sizeof(char));
 				code_string += ("%c", bit);
@@ -123,8 +133,8 @@ void decode_file()
 			if (to_decode.eof()) {
 				break;
 			}
-			code_position = search_name_in_list(ASCII_CODES, code_string, 128);
-			decoded << ASCII_SYMBOLS[code_position];
+			// Use bit string to find next character using binary tree searching
+			decoded << search_tree(binary_tree, 7 ,code_string);
 			code_string = "";
 		}
 		to_decode.close();
@@ -135,7 +145,7 @@ void decode_file()
 int main()
 {
 	ASCII_Table();
-	
+
 	encode_file();
 
 	decode_file();
