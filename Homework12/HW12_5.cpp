@@ -17,23 +17,37 @@ struct COURSE {
 	int num_of_units = 0;
 };
 
-void print_course(COURSE my_course)
+void print_course(COURSE* my_course)
 {
-	cout << "Number of units: " << my_course.num_of_units << endl;
-	cout << "Course number: " << my_course.course_number << endl;
+	cout << "Course number: " << my_course -> course_number << endl;
+	cout << "Number of units: " << my_course->num_of_units << endl;
+}
+
+void fill_info(int number_of_courses)
+{
+	COURSE* my_course;
+	for (int i = 0; i < number_of_courses; i++) {
+
+		my_course = new COURSE;
+
+		cout << "Please input a course number: " << endl;
+		cin >> my_course->course_number;
+
+		cout << "Please input the number of units this course is worth" << endl;
+		cin >> my_course->num_of_units;
+
+		print_course(my_course);
+	}
 }
 
 int main()
 {
+	int number_of_courses;
 
-	COURSE my_course;
-
-	cout << "Please input the number of units you are taking this semester" << endl;
-	cin >> my_course.num_of_units;
-	cout << "Please input the course number (without any spaces within, e.g., EE155)" << endl;
-	cin >> my_course.course_number;
-
-	print_course(my_course);
+	cout << "Please input the number of courses you are taking" << endl;
+	cin >> number_of_courses;
+	
+	fill_info(number_of_courses);
 
 	return 0;
 }
