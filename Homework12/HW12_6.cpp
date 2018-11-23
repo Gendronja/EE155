@@ -44,7 +44,7 @@ int main() {
 	my_list->id = 0;
 	my_list->next = NULL;
 
-	// create the nex five elements and assign id values
+	// create the next five elements and assign id values
 	element = my_list;
 	for (i = 1; i < 5; i++) {
 		element->next = new node;
@@ -78,6 +78,33 @@ int main() {
 	// insert a new element with id value m BEFORE the element whose id value == k; if there is no element with id value == k, then add such a new element at the start of the list
 
 	// INSERT YOUR CODE HERE
+	element = my_list;
+	
+	// Runs through list until it reaches the target element or until it reaches the end
+	while (element->next != NULL) {
+	
+		element = element->next;
+		if (element->next == NULL) {
+			break;
+		}
+		if (element->next->id == k) {
+			break;
+		}
+	}
+	new_node = new node;
+	new_node->id = m;
+
+	// If target element does not exist, create new node at beginning, otherwise, create new node before the target element
+	if (element->next == NULL) {
+		element = my_list;
+		new_node->next = element;
+		my_list = new_node;
+	}
+	else {
+		new_node->next = element->next;
+		element->next = new_node;
+	}
+	
 
 
 	cout << "The extended list" << endl;
