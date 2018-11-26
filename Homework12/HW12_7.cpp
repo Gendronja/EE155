@@ -21,22 +21,22 @@ struct TREE_NODE {
 	TREE_NODE* right_child = NULL;
 };
 
-void input_values(TREE_NODE* current, string code, string value)
+void input_values(TREE_NODE*& element, string code, string value)
 {
 	int n = code.length();
 	while (n > 0) {
 		if (code.substr(n - 1, 1) == "0") {
-			current = current->left_child;
+			element = element->left_child;
 		}
 		else {
-			current = current->right_child;
+			element = element->right_child;
 		}
 		n--;
 	}
-	current->node_value = value;
+	element->node_value = value;
 }
 
-void create_tree(TREE_NODE* r, int n)
+void create_tree(TREE_NODE*& r, int n)
 {
 	if (n == 0) {
 		r = NULL;
@@ -49,23 +49,29 @@ void create_tree(TREE_NODE* r, int n)
 
 }
 
-void print_tree(TREE_NODE* root)
+void print_tree(TREE_NODE* element, string code)
 {
-	cout << "Value: " << root->node_value << endl;
-	cout << "left child: " << root->left_child << endl;
-	cout << "right_child: " << root->right_child << endl;
-
-	print_tree(root->left_child);
-	print_tree(root->right_child);
-
+	int n = code.length();
+	while (n > 0) {
+		if (code.substr(n - 1, 1) == "0") {
+			element = element->left_child;
+		}
+		else {
+			element = element->right_child;
+		}
+		n--;
+	}
+	cout << "Value: " << element->node_value << endl;
+	cout << "left child: " << element->left_child << endl;
+	cout << "right_child: " << element->right_child << endl;
 }
 
 int main()
 {
 	string codes[4] = {
 		"00",
-		"01",
 		"10",
+		"01",
 		"11"
 	};
 
@@ -76,15 +82,30 @@ int main()
 		"DD"
 	};
 
+	string print_codes[7] = {
+		"",
+		"0",
+		"1",
+		"00",
+		"10",
+		"01",
+		"11"
+	};
 
-	TREE_NODE* tree_root;
+
+	TREE_NODE* tree_root;;
+
+	create_tree(tree_root, 3);	
 	
-	create_tree(tree_root, 3);
+	TREE_NODE* element;
 	
 	for (int i = 0; i < 4; i++) {
-		input_values(tree_root, codes[i], values[i]);
+		element = tree_root;
+		input_values(element, codes[i], values[i]);
 	}
-
-	print_tree(tree_root);
-
+	
+	for (int i = 0; i < 7; i++) {
+		print_tree(tree_root, print_codes[i]);
+	}
+	
 }

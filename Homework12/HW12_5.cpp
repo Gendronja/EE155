@@ -2,7 +2,6 @@
 #include <string>
 using namespace std;
 
-
 //Write a program which(a) defines a new structure called COURSE
 //with two fields, a string for course_number and an int for num_of_units.
 //The main program asks the user to input the number of
