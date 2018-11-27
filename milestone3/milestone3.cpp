@@ -55,50 +55,37 @@ int search_name_in_list(string names[], string search_name, int sz_names)
 	return(-1);
 }
 
-void create_tree(TREE_NODE*& r, int n)
+// Creates a new node for huffman tree
+// Must be called for each entry in huffman code array
+void create_node(TREE_NODE* r, string code)
 {
-	if (n == 0) {
-		r = NULL;
-	}
-	else {
-		r = new TREE_NODE;
-		create_tree(r->left_child, n - 1);
-		create_tree(r->right_child, n - 1);
-	}
-}
+	int code_position = search_name_in_list(HUFFMAN_CODES, code, 128);
 
-void input_values(TREE_NODE*& element, string code, string value)
-{
-	int n = code.length();
-	while (n > 0) {
-		if (code.substr(n - 1, 1) == "0") {
-			element = element->left_child;
+	TREE_NODE* next_node;
+	TREE_NODE* current_node = r;
+
+	// Reads huffman codes and places symbols in tree
+	// Creates new nodes as needed to prevent unnecessary memory allocation
+	for (int i = 0; i < code.length(); i++) {
+		string bit = code.substr(i, 1);
+		if (bit == "0") {
+			if (current_node->left_child == NULL) {
+				next_node = new TREE_NODE;
+				current_node->left_child = next_node;
+			}
+			current_node = current_node->left_child;
 		}
 		else {
-			element = element->right_child;
+			if (current_node->right_child == NULL) {
+				next_node = new TREE_NODE;
+				current_node->right_child = next_node;
+			}
+			current_node = current_node->right_child;
 		}
-		n--;
 	}
-	// Inputs value after reaching end of code, and makes left/right childs point to NULL
-	element->node_value = value;
-
-	//element->left_child = NULL;
-	//element->right_child = NULL;
+	current_node->node_value = ASCII_SYMBOLS[code_position];
 }
 
-/*
-string search_tree(TREE_NODE*& element, string bit)
-{
-	if (bit == "0") {
-		element = element->left_child;
-	}
-	else {
-		element = element->right_child;
-	}
-	
-		return (element->node_value);
-}
-*/
 
 // Takes .txt file and outputs a new encoded file that contains huffman code
 // Uses search_name_in_list function to compare position of each character read to huffman code values
@@ -121,7 +108,7 @@ void encode_file()
 			if (to_encode.eof()) {
 				break;
 			}
-			ch = ("%c", c);
+			ch = c;
 			symbol_position = search_name_in_list(ASCII_SYMBOLS, ch, 128);
 			encoded << HUFFMAN_CODES[symbol_position];
 		}
@@ -130,51 +117,44 @@ void encode_file()
 	encoded.close();
 }
 
-// Takes encoded file and outputs a new decoded file that has the same content as the original read file
-// Converts 7 bits into a string and uses a binary tree search to search for the proper character
+// Takes encoded .txt file and outputs a new decoded file that has the same content as the original read file
+// Reads bits from encoded file until it hits a NULL pointer in the tree and outputs each character sequentially
 void decode_file()
 {
 	char c;
 	string bit;	
 
-	TREE_NODE* root;
-	create_tree(root, 20);
-	TREE_NODE* element;
+	TREE_NODE* root = new TREE_NODE;
 
 	for (int i = 0; i < 128; i++) {
-		element = root;
-		input_values(element, HUFFMAN_CODES[i], ASCII_SYMBOLS[i]);
+		create_node(root, HUFFMAN_CODES[i]);
 	}
-	element = root;
+	TREE_NODE* element = root;
 
 	ifstream to_decode("encoded.txt");
 	ofstream decoded("decoded.txt");
 
 	if (to_decode.is_open()) {
+		// Read all bits from encoded file and decode them into characters
 		while (!to_decode.eof()) {
-			// Read bits until function stops
-			while (1) {
-				to_decode.read(&c, sizeof(char));
-				bit = c;
-				if (bit == "0") {
-					element = element->left_child;
-				}
-				else {
-					element = element->right_child;
-				}
-				if (element->right_child == NULL || element->left_child == NULL) {
-					break;
-				}
+			to_decode.read(&c, sizeof(char));
+			bit = c;
+			if (bit == "0") {
+				element = element->left_child;
+			}
+			else if (bit == "1") {
+				element = element->right_child;
 			}
 				
 			// Exit loop if end of file is reached
 			if (to_decode.eof()) {
 				break;
 			}
-
-			//cout << element->node_value << endl;
-			decoded << element->node_value;
-			element = root;
+			// Print character to file if NULL pointer reached and reset element for next character
+			if (element->left_child == NULL || element->right_child == NULL){
+				decoded << element->node_value;
+				element = root;
+			}
 		}
 		to_decode.close();
 		decoded.close();
@@ -183,10 +163,9 @@ void decode_file()
 
 int main() {
 	ASCII_and_Huffman_Table();
-	//for (int i = 0; i < 128; i++) {
-	//	cout << i << ": " << ASCII_CODES[i] << " " << HUFFMAN_CODES[i] << " " << ASCII_SYMBOLS[i] << endl;
-	//}
+
 	encode_file();
+	
 	decode_file();
 
 	return 0;
