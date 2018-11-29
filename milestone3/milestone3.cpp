@@ -99,7 +99,7 @@ void encode_file()
 	// Change this file name to read a different file
 	ifstream to_encode("macbeth-from-mit-dot-edu.txt");
 
-	ofstream encoded("encoded.txt");
+	ofstream encoded("macbeth.huffman");
 
 	if (to_encode.is_open()) {
 		while (!to_encode.eof()) {
@@ -131,8 +131,8 @@ void decode_file()
 	}
 	TREE_NODE* element = root;
 
-	ifstream to_decode("encoded.txt");
-	ofstream decoded("decoded.txt");
+	ifstream to_decode("macbeth.huffman");
+	ofstream decoded("macbeth.huffman.decoded");
 
 	if (to_decode.is_open()) {
 		// Read all bits from encoded file and decode them into characters
