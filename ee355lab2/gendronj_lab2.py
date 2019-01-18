@@ -20,25 +20,21 @@ f = open("input.txt", "r")
 
 # Input matrix data
 line = list(f)
-for i in range(int(size2)):
-   mlist = line[i].split()
-   for j in range(len(mlist)):
-     A[i][j] = mlist[j]
+for i in range(int(size)):
+     A.append(line[i])
 
 for i in range(int(size2)):
-	mlist = line[i + (int(size2))].split()
-	for j in mlist:
-		B[i][j] = mlist[j]
+	B.append(line[i])
 	 
-	
+print (A)
+print (B)	 
 
+#for i in range(size):
+#	for j in range(size):
+#		for k in range(size):
+#			c = c + (A[i][k] * B[k][j])
+#		C[i][j] = c
+#		c = 0
 
-for i in range(size):
-	for j in range(size):
-		for k in range(size):
-			c = c + (A[i][k] * B[k][j])
-		C[i][j] = c
-		c = 0
-
-outfile = open("outfile.txt")
-outfile.write(C)
+#outfile = open("outfile.txt")
+#outfile.write(C)
