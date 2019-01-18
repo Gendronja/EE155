@@ -19,7 +19,7 @@ f = open("input.txt", "r")
 line = list(f)
 for i in range(int(size2)):
    mlist = line[i].split()
-   for j in mlist:
+   for j in range(mlist):
      A[i][j] = mlist[j]
 
 for i in range(int(size2)):
