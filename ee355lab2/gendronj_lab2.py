@@ -20,6 +20,11 @@ f = open("input.txt", "r")
 
 # Input matrix data
 line = list(f)
+
+# Remove \n from list
+for i in range(2*size):
+	line.remove("\n")
+	
 for i in range(int(size)):
      A.append(line[i])
 
