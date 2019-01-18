@@ -23,8 +23,8 @@ line = list(f)
 for i in range(int(size)):
      A.append(line[i])
 
-for i in range(int(size2)):
-	B.append(line[i])
+for i in range(int(size)):
+	B.append(line[i+8])
 	 
 print (A)
 print (B)	 
