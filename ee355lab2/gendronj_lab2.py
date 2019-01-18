@@ -34,7 +34,7 @@ for i in range(int(size)):
 for i in range(int(size)):
 	for j in range(int(size)):
 		for k in range(int(size)):
-			c = c + (A[i][k] * B[k][j])
+			c = c + (int(A[i][k]) * int(B[k][j]))
 		C[i][j] = c
 		c = 0
 
