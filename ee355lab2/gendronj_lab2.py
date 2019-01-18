@@ -36,5 +36,6 @@ for i in range(int(size)):
 		C.append(c)
 		c = 0
 
-outfile = open("outfile.txt")
-outfile.write(C)
+print(C)		
+#outfile = open("outfile.txt")
+#outfile.write(C)
