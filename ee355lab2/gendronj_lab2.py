@@ -30,7 +30,7 @@ for i in range(int(size)):
 for i in range(int(size)):
 	B.append(line[i+8].split())
 	 
-print (A)
+print (A[0][0])
 print (B)	 
 
 #for i in range(size):
