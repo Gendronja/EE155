@@ -38,4 +38,4 @@ for i in range(int(size)):
 	
 outfile = open("outfile.txt")
 for i in range(int(size2)):
-	outfile.write(C[i])
+	outfile.write(str(C[i]))
