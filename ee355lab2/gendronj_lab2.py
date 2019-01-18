@@ -15,7 +15,7 @@ size2 = size * size
 
 A = []
 B = []
-C = [[],[]]
+C = [[],[],[],[],[],[],[],[]]
 
 f = open("input.txt", "r")
 
