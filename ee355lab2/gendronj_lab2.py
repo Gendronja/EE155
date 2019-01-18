@@ -1,10 +1,12 @@
 # Matrix Multiplication
+import time
 
 # Matrix file intake
 f = open("input.txt", "r")
 line = f.readline()
 row_count = 0
 
+start = time.time()
 # Count how many rows in matrix file to determine size of matrices
 while line:
 	line = f.readline()
@@ -35,11 +37,13 @@ for i in range(int(size)):
 		c = 0
 
 count = 0
-outfile = open("output.txt", "w")
+outfile = open("output.txt", "w+")
 for i in range(int(size*size)):
 	outfile.write("%d " %(C[i]))
 	count += 1
 	if count == 8:
 		outfile.write('\n')
 		count = 0
-		
+outtime = open.("output_time.txt", "w+")
+end = time.time()
+outfile.write(end - start)
