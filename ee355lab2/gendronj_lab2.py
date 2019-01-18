@@ -46,4 +46,4 @@ for i in range(int(size*size)):
 		count = 0
 outtime = open("output_time.txt", "w+")
 end = time.time()
-outfile.write(end - start)
+outfile.write("runtime = %d" %(end - start))
