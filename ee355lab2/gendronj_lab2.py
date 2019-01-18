@@ -11,16 +11,17 @@ while line:
 	line = f.readline()
 	row_count += 1
 size = row_count / 2
+size2 = size * size
 
 # Input matrix data
 line = list(f)
-for i in range (len(line)/2):
+for i in range(int(size2)):
    mlist = line[i].split()
    for j in mlist:
      A[i][j] = mlist[j]
 
-for i in range (len(line)/2):
-	mlist = line[i + (size*size)].split()
+for i in range(int(size2)):
+	mlist = line[i + (int(size2))].split()
 	for j in mlist:
 		B[i][j] = mlist[j]
 	 
@@ -34,6 +35,7 @@ for i in range(size):
 		C[i][j] = c
 		c = 0
 
+outfile = open("outfile.txt")
 for i in range(size):
 	for j in range(size):
-		print(C[i][j])
+		outfile.write(C[i][j])
