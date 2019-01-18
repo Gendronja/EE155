@@ -13,8 +13,8 @@ while line:
 size = row_count / 2
 size2 = size * size
 
-A = []
-B = []
+A = [][]
+B = [][]
 
 f = open("input.txt", "r")
 
