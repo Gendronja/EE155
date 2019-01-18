@@ -42,4 +42,5 @@ for i in range(int(size2)):
 	count += 1
 	if count == 8:
 		outfile.write('\n')
+		count = 0
 		
