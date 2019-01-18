@@ -13,6 +13,8 @@ while line:
 size = row_count / 2
 size2 = size * size
 
+f = open("input.txt", "r")
+
 # Input matrix data
 line = list(f)
 for i in range(int(size2)):
