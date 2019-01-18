@@ -19,7 +19,8 @@ B = []
 f = open("input.txt", "r")
 
 # Input matrix data
-line = list(f)
+line = f.read
+line = line.strip("\n")
 print(line)
 
 
