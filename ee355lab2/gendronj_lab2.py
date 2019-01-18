@@ -10,11 +10,9 @@ row_count = 0
 while line:
 	line = f.readline()
 	row_count += 1
-close("input.txt")
 size = row_count / 2
 
 # Input matrix data
-f = open("input.txt", "r")
 line = list(f)
 for i in range (len(line)/2):
    mlist = line[i].split()
