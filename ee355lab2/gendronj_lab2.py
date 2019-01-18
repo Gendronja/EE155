@@ -35,7 +35,11 @@ for i in range(int(size)):
 			c = c + (int(A[i][k]) * int(B[k][j]))
 		C.append(c)
 		c = 0
-	
+count = 0
 outfile = open("outfile.txt", "w")
 for i in range(int(size2)):
 	outfile.write("%d " %(C[i]))
+	count += 1
+	if count == 8:
+		outfile.write('\n')
+		
