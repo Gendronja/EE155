@@ -15,6 +15,7 @@ size2 = size * size
 
 A = []
 B = []
+C = []
 
 f = open("input.txt", "r")
 
@@ -35,7 +36,7 @@ for i in range(int(size)):
 	for j in range(int(size)):
 		for k in range(int(size)):
 			c = c + (int(A[i][k]) * int(B[k][j]))
-		C[i][j] = c
+		C[i] = c
 		c = 0
 
 outfile = open("outfile.txt")
