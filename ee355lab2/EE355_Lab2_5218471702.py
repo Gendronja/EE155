@@ -16,8 +16,6 @@ C = []
 
 # Matrix file intake
 f = open("input.txt", "r")
-line = f.readline()
-row_count = 0
 
 # Count how many rows in matrix file to determine size of matrices for future adaptability
 #while line:
