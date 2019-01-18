@@ -15,15 +15,12 @@ size2 = size * size
 
 A = []
 B = []
-C = []
+C = [[],[]]
 
 f = open("input.txt", "r")
 
 # Input matrix data
 line = list(f)
-
-# Remove \n from list
-#line.strip("\n")
 	
 for i in range(int(size)):
      A.append(line[i].split())
@@ -36,7 +33,7 @@ for i in range(int(size)):
 	for j in range(int(size)):
 		for k in range(int(size)):
 			c = c + (int(A[i][k]) * int(B[k][j]))
-		C[i] = c
+		C[i][j] = c
 		c = 0
 
 outfile = open("outfile.txt")
