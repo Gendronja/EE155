@@ -26,6 +26,7 @@ for i in range(int(size)):
 for i in range(int(size)):
 	B.append(line[i+8].split())
  
+ c = 0
 for i in range(int(size)):
 	for j in range(int(size)):
 		for k in range(int(size)):
