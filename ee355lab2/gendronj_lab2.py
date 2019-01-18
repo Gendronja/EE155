@@ -20,7 +20,7 @@ f = open("input.txt", "r")
 
 # Input matrix data
 line = f.read
-line = line.strip("\n")
+line.strip('\n')
 print(line)
 
 
