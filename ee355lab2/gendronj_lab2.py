@@ -36,6 +36,6 @@ for i in range(int(size)):
 		C.append(c)
 		c = 0
 	
-outfile = open("outfile.txt")
+outfile = open("outfile.txt", "w")
 for i in range(int(size2)):
 	outfile.write("%d " %(C[i]))
