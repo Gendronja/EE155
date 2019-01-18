@@ -29,16 +29,14 @@ for i in range(int(size)):
 
 for i in range(int(size)):
 	B.append(line[i+8].split())
-	 
-print (A[0][0])
-print (B)	 
+ 
 
-#for i in range(size):
-#	for j in range(size):
-#		for k in range(size):
-#			c = c + (A[i][k] * B[k][j])
-#		C[i][j] = c
-#		c = 0
+for i in range(size):
+	for j in range(size):
+		for k in range(size):
+			c = c + (A[i][k] * B[k][j])
+		C[i][j] = c
+		c = 0
 
-#outfile = open("outfile.txt")
-#outfile.write(C)
+outfile = open("outfile.txt")
+outfile.write(C)
