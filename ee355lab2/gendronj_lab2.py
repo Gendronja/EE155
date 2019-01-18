@@ -35,7 +35,7 @@ for i in range(int(size)):
 		c = 0
 
 count = 0
-outfile = open("outfile.txt", "w")
+outfile = open("output.txt", "w")
 for i in range(int(size*size)):
 	outfile.write("%d " %(C[i]))
 	count += 1
