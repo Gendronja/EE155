@@ -22,7 +22,7 @@ f = open("input.txt", "r")
 line = list(f)
 
 # Remove \n from list
-for i in range(2*size):
+for i in range(row_count):
 	line.remove("\n")
 	
 for i in range(int(size)):
