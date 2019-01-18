@@ -44,6 +44,6 @@ for i in range(int(size*size)):
 	if count == 8:
 		outfile.write('\n')
 		count = 0
-outtime = open.("output_time.txt", "w+")
+outtime = open("output_time.txt", "w+")
 end = time.time()
 outfile.write(end - start)
