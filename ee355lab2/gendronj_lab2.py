@@ -13,8 +13,6 @@ while line:
 size = row_count / 2
 size2 = size * size
 
-print(line)
-
 A = []
 B = []
 
@@ -22,6 +20,8 @@ f = open("input.txt", "r")
 
 # Input matrix data
 line = list(f)
+print(line)
+
 
 # Remove \n from list
 #line.strip("\n")
