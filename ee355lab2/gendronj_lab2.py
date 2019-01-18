@@ -23,7 +23,7 @@ line = list(f)
 
 # Remove \n from list
 for i in range(row_count):
-	line.remove(\n)
+	line.remove('\n')
 	
 for i in range(int(size)):
      A.append(line[i])
