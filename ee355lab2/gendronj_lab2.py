@@ -13,8 +13,8 @@ while line:
 size = row_count / 2
 size2 = size * size
 
-A = [][]
-B = [][]
+A = [[],[]]
+B = [[],[]]
 
 f = open("input.txt", "r")
 
@@ -41,6 +41,4 @@ for i in range(size):
 		c = 0
 
 outfile = open("outfile.txt")
-for i in range(size):
-	for j in range(size):
-		outfile.write(C[i][j])
+outfile.write(C)
