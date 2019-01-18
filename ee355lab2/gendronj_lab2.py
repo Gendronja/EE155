@@ -35,7 +35,7 @@ for i in range(int(size)):
 			c = c + (int(A[i][k]) * int(B[k][j]))
 		C.append(c)
 		c = 0
-
-print(C)		
-#outfile = open("outfile.txt")
-#outfile.write(C)
+	
+outfile = open("outfile.txt")
+for i in range(int(size2)):
+	outfile.write(C[i])
