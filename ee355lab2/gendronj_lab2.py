@@ -13,6 +13,8 @@ while line:
 size = row_count / 2
 size2 = size * size
 
+print(line)
+
 A = []
 B = []
 
@@ -22,7 +24,7 @@ f = open("input.txt", "r")
 line = list(f)
 
 # Remove \n from list
-line.strip("\n")
+#line.strip("\n")
 	
 for i in range(int(size)):
      A.append(line[i])
