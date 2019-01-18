@@ -19,19 +19,16 @@ B = []
 f = open("input.txt", "r")
 
 # Input matrix data
-line = f.read
-line.strip('\n')
-print(line)
-
+line = list(f)
 
 # Remove \n from list
 #line.strip("\n")
 	
 for i in range(int(size)):
-     A.append(line[i])
+     A.append(line[i].split())
 
 for i in range(int(size)):
-	B.append(line[i+8])
+	B.append(line[i+8].split())
 	 
 print (A)
 print (B)	 
